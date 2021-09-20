@@ -7,6 +7,13 @@ const schemas = {
                 firebaseToken: Joi.string().required(),
             }).required(),
         },
+        firebaseMessage: {
+            post: Joi.object().keys({
+                title: Joi.string().optional(),
+                message: Joi.string().required(),
+                value: Joi.string().optional(),
+            }).required(),
+        },
     }
 };
 

@@ -9,6 +9,15 @@ const firebase = {
     }
 };
 
+const firebaseMessage = {
+    post: async (req, res) => {
+        await controller.sendJson(res, async (connection) => {
+            return await service.firebaseMessage.post(connection, req.options, req.user);
+        });
+    }
+};
+
 module.exports = {
     firebase,
+    firebaseMessage,
 };

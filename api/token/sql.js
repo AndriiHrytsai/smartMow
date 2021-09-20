@@ -4,7 +4,8 @@ const common = {
     findUserById: async (connection, userId) => {
         const sql = await connection.query(`
             SELECT user_id,
-                   user_password
+                   user_password,
+                   firebase_token
             FROM smart_mow.accounts
             WHERE user_id = $1
             LIMIT 1

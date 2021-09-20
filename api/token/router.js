@@ -11,4 +11,10 @@ router.post('/firebase',
     asyncHandler(controller.firebase.post),
 );
 
+router.post('/firebase/message',
+    asyncHandler(middlewares.auth.user),
+    validator.main(schemas.router.firebaseMessage.post),
+    asyncHandler(controller.firebaseMessage.post),
+);
+
 module.exports = router;

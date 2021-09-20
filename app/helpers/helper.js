@@ -4,6 +4,7 @@ module.exports = {
     doom: require('./doom.helper'),
     general: require('./general.helper'),
     header: require('./header.helper'),
+    notification: require('./notification.helper'),
     pg: require('./pg.helper'),
     token: require('./token.helper'),
     validator: require('./validator.helper'),
