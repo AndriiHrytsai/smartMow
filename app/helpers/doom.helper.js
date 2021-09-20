@@ -25,6 +25,9 @@ const errorCode = {
 
     // Password does not match email.
     passwordNotValid: 130,
+
+    // User account was not found.
+    accountNotFound: 140,
 };
 
 const error = {
@@ -91,6 +94,16 @@ const error = {
             message: 'Password is not valid.',
             error: "Access Denied",
             errorCode: errorCode.passwordNotValid,
+        }
+    },
+
+    accountNotFound: () => {
+        return {
+            statusCode: StatusCodes.NOT_FOUND,
+            success: false,
+            message: 'Account was not found.',
+            error: "Account not found",
+            errorCode: errorCode.accountNotFound,
         }
     },
 };
