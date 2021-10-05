@@ -1,5 +1,7 @@
 const helper = require('../../app/helpers/helper');
 const sql = require('./sql');
+const converter = require('./converter');
+
 
 const firebase = {
     post: async (connection, options, user) => {
@@ -13,13 +15,13 @@ const firebase = {
         return {
             'success': true,
             'result': {
-                message: 'The token was saved successfully.'
+                message: 'The notification was saved successfully.'
             },
         }
     }
 };
 
-const firebaseMessage = {
+const sendNotification = {
     post: async (connection, options, user) => {
         let foundUser = await sql.common.findUserById(connection, user.id);
         if (foundUser === null) {
@@ -33,6 +35,7 @@ const firebaseMessage = {
         });
 
         await helper.notification.send(send);
+        await sql.sendNotification.post.saveNotification(connection, options, user.id)
 
         return {
             'success': true,
@@ -43,7 +46,21 @@ const firebaseMessage = {
     }
 };
 
+const notifications = {
+    post: async (connection, options, user) => {
+        const allUserNotifications = await sql.notifications.get.findAllNotification(connection, options, user.id);
+
+        const result = converter.notifications.get(allUserNotifications);
+
+        return {
+            'success': true,
+            'result': result,
+        }
+    }
+};
+
 module.exports = {
     firebase,
-    firebaseMessage,
+    sendNotification,
+    notifications
 };

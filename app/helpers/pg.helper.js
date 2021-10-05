@@ -42,6 +42,6 @@ module.exports = {
         limit = limit || config.database.limit;
         page = page * limit;
 
-        return sql + `OFFSET ${page} LIMIT ${limit}`;
+        return `${sql} OFFSET ${page} LIMIT ${limit}`;
     }
 };

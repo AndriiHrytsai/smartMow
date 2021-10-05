@@ -7,11 +7,17 @@ const schemas = {
                 firebaseToken: Joi.string().required(),
             }).required(),
         },
-        firebaseMessage: {
+        sendNotification: {
             post: Joi.object().keys({
-                title: Joi.string().optional(),
+                tittle: Joi.string().optional(),
                 message: Joi.string().required(),
-                value: Joi.string().optional(),
+                priority: Joi.string().required(),
+            }).required(),
+        },
+        notifications: {
+            get: Joi.object().keys({
+                page: Joi.number().positive().required(),
+                limit: Joi.number().positive().optional(),
             }).required(),
         },
     }
