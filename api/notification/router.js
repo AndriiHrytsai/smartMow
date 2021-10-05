@@ -22,7 +22,12 @@ router.get('/',
     asyncHandler(middlewares.auth.user),
     validator.main(schemas.router.notifications.get),
     asyncHandler(controller.notifications.get),
+);
 
+router.get('/getByRobotUUID',
+    asyncHandler(middlewares.auth.user),
+    validator.main(schemas.router.robotUUID.get),
+    asyncHandler(controller.notificationsByUUID.get),
 );
 
 module.exports = router;

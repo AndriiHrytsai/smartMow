@@ -59,8 +59,22 @@ const notifications = {
     }
 };
 
+const notificationsByUUID = {
+    post: async (connection, options) => {
+        const allUserNotificationsByUUID = await sql.notificationsByUUID.get.findAllNotificationByUUID(connection, options);
+
+        const result = converter.notifications.get(allUserNotificationsByUUID);
+
+        return {
+            'success': true,
+            'result': result,
+        }
+    }
+};
+
 module.exports = {
     firebase,
     sendNotification,
-    notifications
+    notifications,
+    notificationsByUUID
 };

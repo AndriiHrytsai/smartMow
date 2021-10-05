@@ -20,6 +20,13 @@ const schemas = {
                 limit: Joi.number().positive().optional(),
             }).required(),
         },
+        robotUUID: {
+            get: Joi.object().keys({
+                robotUuid: Joi.number().required(),
+                page: Joi.number().positive().required(),
+                limit: Joi.number().positive().optional(),
+            }).required(),
+        },
     }
 };
 

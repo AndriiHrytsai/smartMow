@@ -73,9 +73,31 @@ const notifications = {
     }
 };
 
+const notificationsByUUID = {
+    get: {
+        findAllNotificationByUUID: async (connection, options) => {
+            const sql = `SELECT id,
+                                owner,
+                                message,
+                                date,
+                                priority,
+                                tittle
+                         FROM smart_mow.notification
+                         WHERE robot_uuid = $1
+                         ORDER BY date DESC`
+
+            const pagination = pg.withPagination(sql, options.page, options.limit);
+            const result = await connection.query(pagination, [options.robotUuid]);
+
+            return pg.resultOrEmptyArray(result);
+        }
+    }
+};
+
 module.exports = {
     common,
     firebase,
     sendNotification,
-    notifications
+    notifications,
+    notificationsByUUID
 };

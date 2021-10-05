@@ -25,8 +25,19 @@ const notifications = {
     }
 };
 
+const notificationsByUUID = {
+    get: async (req, res) => {
+        await controller.sendJson(res, async (connection) => {
+            console.log(req.options);
+            console.log('-------')
+            return await service.notificationsByUUID.post(connection, req.options);
+        });
+    }
+};
+
 module.exports = {
     firebase,
     sendNotification,
-    notifications
+    notifications,
+    notificationsByUUID
 };
