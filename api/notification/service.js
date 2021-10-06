@@ -59,11 +59,11 @@ const notifications = {
     }
 };
 
-const notificationsByUUID = {
-    post: async (connection, options) => {
-        const allUserNotificationsByUUID = await sql.notificationsByUUID.get.findAllNotificationByUUID(connection, options);
+const robotNotifications = {
+    post: async (connection, options, user) => {
+        const foundNotifications = await sql.robotNotifications.get.findRobotNotifications(connection, options, user.id);
 
-        const result = converter.notifications.get(allUserNotificationsByUUID);
+        const result = converter.notifications.get(foundNotifications);
 
         return {
             'success': true,
@@ -76,5 +76,5 @@ module.exports = {
     firebase,
     sendNotification,
     notifications,
-    notificationsByUUID
+    robotNotifications
 };

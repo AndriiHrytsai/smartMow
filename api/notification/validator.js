@@ -20,9 +20,9 @@ const schemas = {
                 limit: Joi.number().positive().optional(),
             }).required(),
         },
-        robotUUID: {
+        robotNotifications: {
             get: Joi.object().keys({
-                robotUuid: Joi.number().required(),
+                robotUUID: Joi.string().required(),
                 page: Joi.number().positive().required(),
                 limit: Joi.number().positive().optional(),
             }).required(),

@@ -25,12 +25,10 @@ const notifications = {
     }
 };
 
-const notificationsByUUID = {
+const robotNotifications = {
     get: async (req, res) => {
         await controller.sendJson(res, async (connection) => {
-            console.log(req.options);
-            console.log('-------')
-            return await service.notificationsByUUID.post(connection, req.options);
+            return await service.robotNotifications.post(connection, req.options, req.user);
         });
     }
 };
@@ -39,5 +37,5 @@ module.exports = {
     firebase,
     sendNotification,
     notifications,
-    notificationsByUUID
+    robotNotifications
 };

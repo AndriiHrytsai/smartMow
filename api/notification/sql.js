@@ -33,20 +33,19 @@ const sendNotification = {
     post: {
         saveNotification: async (connection, options, userId) => {
             let result = await connection.query(`
-                        INSERT
-                        INTO smart_mow.notification
-                        (owner,
-                         message,
-                         tittle,
-                         priority)
-                        VALUES ($1, $2, $3, $4)
-                        RETURNING id;
-                `, [userId,
-                    options.message,
-                    options.tittle,
-                    options.priority,
-                ]
-            );
+                INSERT
+                INTO smart_mow.notification
+                (owner,
+                 message,
+                 tittle,
+                 priority)
+                VALUES ($1, $2, $3, $4)
+                RETURNING id;
+            `, [userId,
+                options.message,
+                options.tittle,
+                options.priority,
+            ]);
             return pg.getId(result, 'id');
         },
     }
@@ -55,15 +54,16 @@ const sendNotification = {
 const notifications = {
     get: {
         findAllNotification: async (connection, options, userId) => {
-            const sql = `SELECT id,
-                                owner,
-                                message,
-                                date,
-                                priority,
-                                tittle
-                         FROM smart_mow.notification
-                         WHERE owner = $1
-                         ORDER BY date DESC`
+            const sql = `
+                SELECT id,
+                       owner,
+                       message,
+                       date,
+                       priority,
+                       tittle
+                FROM smart_mow.notification
+                WHERE owner = $1
+                ORDER BY date DESC`
 
             const pagination = pg.withPagination(sql, options.page, options.limit);
             const result = await connection.query(pagination, [userId]);
@@ -73,21 +73,23 @@ const notifications = {
     }
 };
 
-const notificationsByUUID = {
+const robotNotifications = {
     get: {
-        findAllNotificationByUUID: async (connection, options) => {
-            const sql = `SELECT id,
-                                owner,
-                                message,
-                                date,
-                                priority,
-                                tittle
-                         FROM smart_mow.notification
-                         WHERE robot_uuid = $1
-                         ORDER BY date DESC`
+        findRobotNotifications: async (connection, options, userId) => {
+            const sql = `
+                SELECT id,
+                       owner,
+                       message,
+                       date,
+                       priority,
+                       tittle
+                FROM smart_mow.notification
+                WHERE robot_uuid = $1
+                  AND owner = $2
+                ORDER BY date DESC`
 
             const pagination = pg.withPagination(sql, options.page, options.limit);
-            const result = await connection.query(pagination, [options.robotUuid]);
+            const result = await connection.query(pagination, [options.robotUUID, userId]);
 
             return pg.resultOrEmptyArray(result);
         }
@@ -99,5 +101,5 @@ module.exports = {
     firebase,
     sendNotification,
     notifications,
-    notificationsByUUID
+    robotNotifications
 };
