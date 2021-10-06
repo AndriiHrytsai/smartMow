@@ -16,6 +16,17 @@ const main = (schema) => {
     };
 };
 
+const allRequest = () => {
+    return (req, res, next) => {
+        let files = req.files || {};
+        const data = general.assign(files, req.params, req.body, req.query);
+
+        req.options = data;
+        next();
+    };
+};
+
 module.exports = {
     main,
+    allRequest
 };

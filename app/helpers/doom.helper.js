@@ -4,10 +4,10 @@ const errorCode = {
     // Wrong data. To send the correct data you need to use the documentation.
     validation: 100,
 
-    // The token in the request was not found.
+    // The notification in the request was not found.
     tokenNotFound: 110,
 
-    // The token in the request is not correct.
+    // The notification in the request is not correct.
     tokenNotValid: 111,
 
     // Token lifetime expired.
@@ -28,6 +28,9 @@ const errorCode = {
 
     // User account was not found.
     accountNotFound: 140,
+
+    // User account was not found.
+    notificationNotFound: 150,
 };
 
 const error = {
@@ -43,7 +46,7 @@ const error = {
     tokenNotFound: (res) => {
         return res.status(StatusCodes.UNAUTHORIZED).json({
             success: false,
-            message: 'To pass the identification, we need a token.',
+            message: 'To pass the identification, we need a notification.',
             error: "Token not found",
             errorCode: errorCode.tokenNotFound,
         });
@@ -104,6 +107,16 @@ const error = {
             message: 'Account was not found.',
             error: "Account not found",
             errorCode: errorCode.accountNotFound,
+        }
+    },
+
+    notificationNotFound: () => {
+        return {
+            statusCode: StatusCodes.NOT_FOUND,
+            success: false,
+            message: 'Notification was not found.',
+            error: "Notification not found",
+            errorCode: errorCode.notificationNotFound,
         }
     },
 };
