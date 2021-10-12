@@ -1,6 +1,6 @@
 const notifications = {
     get: (notification) => {
-        const result = []
+        const result = [];
 
         notification.forEach(value => {
             result.push({
@@ -10,8 +10,8 @@ const notifications = {
                 "priority": value.priority,
                 "date": value.date,
             })
-        })
-        return { notifications: result };
+        });
+        return {notifications: result};
     }
 };
 

@@ -1,8 +1,8 @@
 {
-  "name": "dyop",
+  "name": "smartmow",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start-prod": "SET \"NODE_ENV=prod\" && nodemon server.js",
     "start-dev": "SET \"NODE_ENV=dev\" && nodemon server.js",
@@ -26,7 +26,7 @@
     "morgan": "^1.10.0",
     "morgan-body": "^2.6.6",
     "pg": "^8.6.0",
-    "socket.io": "^4.1.2",
+    "socket.io": "^4.2.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
@@ -43,7 +43,7 @@
     "faker": "^5.5.3",
     "mocha": "^9.0.2",
     "pm2": "^5.1.0",
-    "socket.io-client": "^4.1.2"
+    "socket.io-client": "^4.2.0"
   },
   "optionalDependencies": {
     "fsevents": "^2.3.2"

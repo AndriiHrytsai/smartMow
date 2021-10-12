@@ -23,7 +23,7 @@ if (config.morgan.morganBody) {
 
 app.use(middlewares.cors);
 
-router.userAPI(app);
+router.mobileAPI(app);
 
 app.use(middlewares.notFound);
 app.use(middlewares.error);

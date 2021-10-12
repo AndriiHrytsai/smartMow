@@ -1,4 +1,4 @@
-const { controller } = require('../../app/helpers/helper');
+const {controller} = require('../../app/helpers/helper');
 const service = require('./service');
 
 const firebase = {

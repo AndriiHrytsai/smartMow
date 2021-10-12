@@ -35,7 +35,7 @@ const sendNotification = {
         });
 
         await helper.notification.send(send);
-        await sql.sendNotification.post.saveNotification(connection, options, user.id)
+        await sql.sendNotification.post.saveNotification(connection, options, user.id);
 
         return {
             'success': true,

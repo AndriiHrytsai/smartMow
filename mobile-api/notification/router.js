@@ -1,5 +1,5 @@
-const { validator, middlewares } = require('../../app/helpers/helper');
-const { schemas } = require('./validator');
+const {validator, middlewares} = require('../../app/helpers/helper');
+const {schemas} = require('./validator');
 const express = require('express');
 const router = express.Router({});
 const asyncHandler = require('express-async-handler');
