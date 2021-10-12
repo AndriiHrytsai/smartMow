@@ -1,4 +1,5 @@
 module.exports = {
+    aws: require('./aws.helper'),
     config: require('./config.helper'),
     controller: require('./controller.helper'),
     doom: require('./doom.helper'),
