@@ -1,8 +1,8 @@
 const controller = require("./controller");
 
-function initEvents(socket) {
-    controller.onConnection(socket);
-    controller.onDisconnect(socket);
+function initEvents(io, socket) {
+    controller.onConnection(io, socket);
+    controller.onDisconnect(io, socket);
 }
 
 module.exports = {

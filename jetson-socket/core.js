@@ -12,12 +12,14 @@ const io = require('socket.io')(3002, {
 
 function initSocketIO() {
     io.use(authHandler);
-    io.on(events.connection, connection);
+    io.on(events.connection, connection());
 }
 
-function connection(socket) {
-    socket.join(socket.roomId);
-    app.general.initEvents(socket);
+function connection() {
+    return (socket) => {
+        socket.join(socket.roomId);
+        app.general.initEvents(io, socket);
+    };
 }
 
 module.exports = {

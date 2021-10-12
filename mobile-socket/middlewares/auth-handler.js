@@ -18,9 +18,10 @@ module.exports = async (socket, next) => {
     let accessToken = socket.handshake.query.accessToken;
     let refreshToken = socket.handshake.query.refreshToken;
 
+    // TODO need auth
     let userId = validateAuthToken(accessToken, refreshToken);
-    socket.roomId = userId;
-    socket.userId = userId;
+    socket.roomId = 1;
+    socket.userId = 1;
 
     next();
 };

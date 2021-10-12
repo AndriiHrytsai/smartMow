@@ -1,16 +1,17 @@
 const {events} = require('../../helpers/index');
+const chalk = require('chalk');
 
 let userConnected = 0;
 
-function onConnection(socket) {
+function onConnection(io, socket) {
     userConnected++;
-    console.log(`connection. UserId: ${socket.userId}. Total Users: ${userConnected}`);
+    console.log(`${chalk.blue('MOBILE connection')}:: UserId: [${chalk.green(socket.userId)}], Room: [${chalk.blue(socket.roomId)}]. Total Users: [${chalk.red(userConnected)}]`);
 }
 
-function onDisconnect(socket) {
-    socket.to(socket.userId).on(events.disconnect, () => {
+function onDisconnect(io, socket) {
+    socket.on(events.disconnect, () => {
         userConnected--;
-        console.log(`disconnect. UserId: ${socket.userId}. Total Users: ${userConnected}`);
+        console.log(`${chalk.red('MOBILE disconnect')}:: UserId: [${chalk.green(socket.userId)}], Room: [${chalk.blue(socket.roomId)}]. Total Users: [${chalk.red(userConnected)}]`);
     });
 }
 
