@@ -55,4 +55,15 @@ config.userType = {
     'doctor': 'doctor',
 };
 
+config.aws = {
+    's3': {
+        bucketName: config.aws.s3.bucketName,
+        region: config.aws.s3.region,
+        accessKeyID: config.aws.s3.accessKeyID,
+        secretAccessKey: config.aws.s3.secretAccessKey,
+        s3Url: config.aws.s3.s3Url,
+        s3UrlFirmware: config.aws.s3.s3UrlFirmware
+
+    }
+}
 module.exports = config;
