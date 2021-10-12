@@ -1,6 +1,4 @@
-const { pg } = require('../../app/helpers/helper');
-const helper = require('../../app/helpers/helper');
-
+const {pg} = require('../../app/helpers/helper');
 
 const common = {
     findUserById: async (connection, userId) => {
@@ -63,7 +61,7 @@ const notifications = {
                        tittle
                 FROM smart_mow.notification
                 WHERE owner = $1
-                ORDER BY date DESC`
+                ORDER BY date DESC`;
 
             const pagination = pg.withPagination(sql, options.page, options.limit);
             const result = await connection.query(pagination, [userId]);
@@ -86,7 +84,7 @@ const robotNotifications = {
                 FROM smart_mow.notification
                 WHERE robot_uuid = $1
                   AND owner = $2
-                ORDER BY date DESC`
+                ORDER BY date DESC`;
 
             const pagination = pg.withPagination(sql, options.page, options.limit);
             const result = await connection.query(pagination, [options.robotUUID, userId]);
