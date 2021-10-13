@@ -5,13 +5,6 @@ module.exports = {
     },
 
     control: {
-        on: {
-            setWorkArea: 'set_work_area',
-            setRestrictedArea: 'set_restricted_area',
-        },
-        emit: {
-            sendWorkArea: 'send_work_area',
-            sendRestrictedArea: 'send_restricted_area',
-        },
+        remote_control: 'remote_control',
     },
 };
