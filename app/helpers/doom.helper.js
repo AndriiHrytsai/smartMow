@@ -31,6 +31,9 @@ const errorCode = {
 
     // User account was not found.
     notificationNotFound: 150,
+
+    // Robot Already Exist.
+    robotAlreadyExist: 160,
 };
 
 const error = {
@@ -117,6 +120,16 @@ const error = {
             message: 'Notification was not found.',
             error: "Notification not found",
             errorCode: errorCode.notificationNotFound,
+        }
+    },
+
+    robotAlreadyExist: () => {
+        return {
+            statusCode: StatusCodes.CONFLICT,
+            success: false,
+            message: 'Such a robot already exists for this person',
+            error: "Robot already exist",
+            errorCode: errorCode.robotAlreadyExist,
         }
     },
 };
