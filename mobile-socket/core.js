@@ -19,6 +19,7 @@ function connection() {
     return (socket) => {
         socket.join(socket.roomId);
         app.general.initEvents(io, socket);
+        app.control.initEvents(io, socket);
     };
 }
 
