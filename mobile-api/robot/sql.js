@@ -1,8 +1,28 @@
 const {pg} = require('../../app/helpers/helper');
 
-const createRobot = {
+const allRobots = {
+    get: {
+        findRobots: async (connection, options, userId) => {
+            const sql = `
+                SELECT id,
+                       owner_id,
+                       version,
+                       name,
+                       robot_uuid
+                FROM smart_mow.robot
+                WHERE owner_id = $1`;
+
+            const pagination = pg.withPagination(sql, options.page, options.limit);
+            const result = await connection.query(pagination, [userId]);
+
+            return pg.resultOrEmptyArray(result);
+        },
+    }
+};
+
+const robot = {
     post: {
-        findRobot: async (connection, options) => {
+        findRobot: async (connection, options, userId) => {
             const sql = await connection.query(`
                 SELECT id,
                        owner_id,
@@ -11,8 +31,9 @@ const createRobot = {
                        robot_uuid
                 FROM smart_mow.robot
                 WHERE robot_uuid = $1
+                  AND owner_id = $2
                 LIMIT 1
-            `, [options.robotUUID]);
+            `, [options.robotUUID, userId]);
 
             return pg.firstResultOrNull(sql);
         },
@@ -36,5 +57,6 @@ const createRobot = {
 };
 
 module.exports = {
-    createRobot,
+    allRobots,
+    robot,
 };
