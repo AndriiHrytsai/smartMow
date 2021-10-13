@@ -1,10 +1,9 @@
 const { pg } = require('../../app/helpers/helper');
-const helper = require('../../app/helpers/helper');
 
 const uploadFirmware = {
     post: {
-        saveFirmwareData: async (connection, data, options) => {
-            let result = await connection.query(`
+        saveFirmwareData: async (connection, options, nextFirmware) => {
+            await connection.query(`
                 INSERT
                 INTO smart_mow.firmware
                 (changes,
@@ -13,8 +12,8 @@ const uploadFirmware = {
                 VALUES ($1, $2, $3);
             `, [
                 options.changes,
-                data.versionFirmware,
-                data.oldFileName,
+                nextFirmware.version,
+                nextFirmware.fileName,
             ]);
         },
     }
@@ -23,39 +22,36 @@ const uploadFirmware = {
 const robots = {
     get: {
         getRobots: async (connection, userId) => {
-            let sql = `
-                SELECT *
+            const sql = await connection.query(`
+                SELECT id,
+                       owner_id,
+                       version,
+                       name
                 FROM smart_mow.robot
                 WHERE owner_id = $1
                 ORDER BY version DESC;
-            `;
-            const result = await connection.query(sql, [userId]);
+            `, [userId]);
 
-            return result;
+            return pg.resultOrEmptyArray(sql);
         },
     }
 };
 
-const allVersions = {
+const allFirmware = {
     get: {
-        versions: async (connection, minVersion, maxVersion) => {
-            let sql = `
-                SELECT changes
+        firmware: async (connection) => {
+            const sql = await connection.query(`
+                SELECT version, changes
                 FROM smart_mow.firmware
-                WHERE version > $1
-                  and version <= $2
-            `;
-
-            const result = await connection.query(sql, [minVersion, maxVersion]);
-
-            return result;
+                order by version ASC
+            `);
+            return pg.resultOrEmptyArray(sql);
         },
     }
 };
-
 
 module.exports = {
     uploadFirmware,
     robots,
-    allVersions
+    allFirmware
 };

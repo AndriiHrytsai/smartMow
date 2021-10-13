@@ -12,12 +12,10 @@ router.post('/upload',
 );
 
 router.get('/version',
-    asyncHandler(middlewares.auth.user),
-    validator.main(schemas.router.firmwareVersion.get),
     asyncHandler(controller.firmwareVersion.get),
 );
 
-router.get('/checkUpdate',
+router.get('/check/update',
     asyncHandler(middlewares.auth.user),
     validator.main(schemas.router.checkUpdate.get),
     asyncHandler(controller.checkUpdate.get),

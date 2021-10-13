@@ -1,11 +1,11 @@
 const sql = require('./sql');
-const { versionRobotFirmware } = require('../../app/helpers/aws.helper')
+const helper = require('../../app/helpers/helper');
 
 const robot = {
     post: async (connection, options, user) => {
-        const robotVersion = await versionRobotFirmware();
+        const { version } = await helper.firmware.getCurrentFirmware();
 
-        await sql.createRobot.post.saveRobot(connection, options, user.id, robotVersion)
+        await sql.createRobot.post.saveRobot(connection, options, user.id, version)
 
         return {
             'success': true,

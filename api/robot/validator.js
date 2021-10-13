@@ -5,7 +5,7 @@ const schemas = {
         robot: {
             post: Joi.object().keys({
                 name: Joi.string().required(),
-                // version: Joi.string().required()
+                version: Joi.string(),
             }).required(),
         },
     }

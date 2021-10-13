@@ -4,7 +4,7 @@ const service = require('./service');
 const firmware = {
     post: async (req, res) => {
         await controller.sendJson(res, async (connection) => {
-            return await service.firmware.post(connection, req.options, req.user);
+            return await service.firmware.post(connection, req.options);
         });
     }
 };
@@ -12,7 +12,7 @@ const firmware = {
 const firmwareVersion = {
     get: async (req, res) => {
         await controller.sendJson(res, async () => {
-            return await service.firmwareVersion.get(req.options, req.user);
+            return await service.firmwareVersion.get();
         });
     }
 };
