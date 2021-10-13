@@ -1,17 +1,16 @@
 const app = require('./app');
 const events = require('./helpers/events.helper');
-const userAuthHandler = require('./middlewares/user-auth-handler');
+const robotAuthHandler = require('./middlewares/robot-auth-handler');
 
 function init(mobileIO, robotIO) {
-    mobileIO.use(userAuthHandler);
-    mobileIO.on(events.common.connection, connection(mobileIO, robotIO));
+    robotIO.use(robotAuthHandler);
+    robotIO.on(events.common.connection, connection(mobileIO, robotIO));
 }
 
 function connection(mobileIO, robotIO) {
     return (socket) => {
         socket.join(socket.roomId);
         app.general.initEvents(socket);
-        app.control.initEvents(socket, mobileIO, robotIO);
     };
 }
 

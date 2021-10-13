@@ -1,7 +1,7 @@
 const {config} = require('../../app/helpers/helper');
 const JWT = require('jsonwebtoken');
 
-function validateAuthToken(accessToken, refreshToken) {
+function validateAuthToken(accessToken) {
     try {
         let decode = JWT.verify(accessToken, config.JWT.secret.user.accessToken);
         return decode.sub;
@@ -12,16 +12,20 @@ function validateAuthToken(accessToken, refreshToken) {
             // go to login screen
         }
     }
+
+    return null;
 }
 
 module.exports = async (socket, next) => {
     let accessToken = socket.handshake.query.accessToken;
-    let refreshToken = socket.handshake.query.refreshToken;
+    let userId = validateAuthToken(accessToken);
+    if (userId === null) {
+        socket.disconnect();
+        return;
+    }
 
-    // TODO need auth
-    let userId = validateAuthToken(accessToken, refreshToken);
-    socket.roomId = 1;
-    socket.userId = 1;
+    socket.userId = userId;
+    socket.roomId = userId;
 
     next();
 };

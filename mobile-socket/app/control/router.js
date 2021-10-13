@@ -1,8 +1,8 @@
 const controller = require("./controller");
 
-function initEvents(io, socket) {
-    controller.onWorkArea(io, socket);
-    controller.onRestrictedArea(io, socket);
+function initEvents(socket, mobileIO, robotIO) {
+    controller.onWorkArea(socket, mobileIO, robotIO);
+    controller.onRestrictedArea(socket, mobileIO, robotIO);
 }
 
 module.exports = {
