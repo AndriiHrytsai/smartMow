@@ -6,7 +6,7 @@ const main = (schema) => {
         let files = req.files || {};
         let data = general.assign(files, req.params, req.body, req.query);
 
-        const {value, error} = schema.validate(data);
+        const { value, error } = schema.validate(data);
         if (error) {
             return doom.error.validation(res, error);
         }
@@ -16,17 +16,6 @@ const main = (schema) => {
     };
 };
 
-const allRequest = () => {
-    return (req, res, next) => {
-        let files = req.files || {};
-        const data = general.assign(files, req.params, req.body, req.query);
-
-        req.options = data;
-        next();
-    };
-};
-
 module.exports = {
     main,
-    allRequest
 };

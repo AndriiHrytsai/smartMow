@@ -1,4 +1,4 @@
-const {events} = require('../../helpers/index');
+const { events } = require('../../helpers/index');
 
 function onRemoteControl(socket, mobileIO, robotIO) {
     socket.on(events.control.remote_control, (data) => {

@@ -2,6 +2,7 @@ module.exports = {
     config: require('./config.helper'),
     controller: require('./controller.helper'),
     doom: require('./doom.helper'),
+    firmware: require('./firmware.helper'),
     general: require('./general.helper'),
     header: require('./header.helper'),
     notification: require('./notification.helper'),
