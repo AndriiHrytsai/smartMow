@@ -1,4 +1,4 @@
-const {StatusCodes} = require('http-status-codes');
+const { StatusCodes } = require('http-status-codes');
 
 const errorCode = {
     // Wrong data. To send the correct data you need to use the documentation.
@@ -34,6 +34,9 @@ const errorCode = {
 
     // Robot Already Exist.
     robotAlreadyExist: 160,
+
+    // Robot Not Found.
+    robotNotFound: 170,
 };
 
 const error = {
@@ -130,6 +133,16 @@ const error = {
             message: 'Such a robot already exists for this person',
             error: "Robot already exist",
             errorCode: errorCode.robotAlreadyExist,
+        }
+    },
+
+    robotNotFound: () => {
+        return {
+            statusCode: StatusCodes.CONFLICT,
+            success: false,
+            message: 'Robot not found',
+            error: "Robot not found",
+            errorCode: errorCode.robotNotFound,
         }
     },
 };

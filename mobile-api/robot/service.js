@@ -32,7 +32,26 @@ const robot = {
     }
 };
 
+const deleteRobot = {
+    delete: async (connection, options, user) => {
+        let foundRobot = await sql.robot.post.findRobot(connection, options, user.id);
+        if (!foundRobot) {
+            return helper.doom.error.robotNotFound();
+        }
+
+        await sql.deleteRobot.delete(connection, options, user.id);
+
+        return {
+            'success': true,
+            'result': {
+                message: 'Robot successfully deleted',
+            },
+        }
+    }
+};
+
 module.exports = {
     allRobots,
     robot,
+    deleteRobot
 };

@@ -1,5 +1,5 @@
-const {validator, middlewares} = require('../../app/helpers/helper');
-const {schemas} = require('./validator');
+const { validator, middlewares } = require('../../app/helpers/helper');
+const { schemas } = require('./validator');
 const express = require('express');
 const router = express.Router({});
 const asyncHandler = require('express-async-handler');
@@ -15,6 +15,12 @@ router.post('/create',
     asyncHandler(middlewares.auth.user),
     validator.main(schemas.router.robot.post),
     asyncHandler(controller.robot.post),
+);
+
+router.delete('/',
+    asyncHandler(middlewares.auth.user),
+    validator.main(schemas.router.deleteRobot.delete),
+    asyncHandler(controller.deleteRobot.delete),
 );
 
 
