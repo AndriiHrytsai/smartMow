@@ -1,4 +1,4 @@
-const {pg} = require('../../app/helpers/helper');
+const { pg } = require('../../app/helpers/helper');
 
 const allRobots = {
     get: {
@@ -56,7 +56,20 @@ const robot = {
     }
 };
 
+const deleteRobot = {
+        delete: async (connection, options, userId) => {
+            await connection.query(`
+                        DELETE
+                        FROM smart_mow.robot
+                        WHERE robot_uuid = $1
+                          AND owner_id = $2`,
+                [options.robotUUID, userId]);
+        },
+    }
+;
+
 module.exports = {
     allRobots,
     robot,
+    deleteRobot
 };

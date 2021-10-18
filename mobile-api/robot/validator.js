@@ -15,6 +15,11 @@ const schemas = {
                 robotVersion: Joi.number().positive().required(),
             }).required(),
         },
+        deleteRobot: {
+            delete: Joi.object().keys({
+                robotUUID: Joi.string().required(),
+            }).required(),
+        },
     }
 };
 

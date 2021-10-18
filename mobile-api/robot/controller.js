@@ -1,4 +1,4 @@
-const {controller} = require('../../app/helpers/helper');
+const { controller } = require('../../app/helpers/helper');
 const service = require('./service');
 
 const allRobots = {
@@ -17,7 +17,16 @@ const robot = {
     }
 };
 
+const deleteRobot = {
+    delete: async (req, res) => {
+        await controller.sendJson(res, async (connection) => {
+            return await service.deleteRobot.delete(connection, req.options, req.user);
+        });
+    }
+};
+
 module.exports = {
     allRobots,
     robot,
+    deleteRobot
 };
