@@ -23,5 +23,4 @@ router.delete('/',
     asyncHandler(controller.deleteRobot.delete),
 );
 
-
 module.exports = router;

@@ -18,7 +18,12 @@ const robot = {
     post: async (connection, options, user) => {
         let foundRobot = await sql.robot.post.findRobot(connection, options, user.id);
         if (foundRobot) {
-            return helper.doom.error.robotAlreadyExist();
+            return {
+                'success': true,
+                'result': {
+                    message: 'Robot already exist',
+                },
+            }
         }
 
         await sql.robot.post.addRobot(connection, options, user.id);
