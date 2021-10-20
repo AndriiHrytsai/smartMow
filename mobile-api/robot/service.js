@@ -72,8 +72,8 @@ const schedule = {
 const workDays = {
     get: async (connection, options) => {
 
-        let daysArray = await sql.workDays.get(connection, options);
-        const result = daysArray.rows[0].days
+        let days = await sql.workDays.get(connection, options);
+        const result = days.rows[0].days
 
         return {
             'success': true,
