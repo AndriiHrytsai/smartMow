@@ -68,30 +68,39 @@ const deleteRobot = {
 };
 
 const schedule = {
-    put: async (connection, options) => {
-        await connection.query(`
-            INSERT
-            INTO smart_mow.schedule
-                (days, robot)
-            VALUES ($1, $2)`, [options.days, options.robotId]);
+    put: {
+        addSchedule: async (connection, options) => {
+            await connection.query(`
+                INSERT
+                INTO smart_mow.schedule
+                    (days, robot_id)
+                VALUES ($1, $2)
+                ON CONFLICT (robot_id)
+                    DO UPDATE
+                    SET days     = EXCLUDED.days,
+                        robot_id = EXCLUDED.robot_id
+            `, [options.days, options.robotId])
+        }
     },
+    get: {
+        getSchedule:
+            async (connection, options) => {
+                let sql = await connection.query(`
+                    SELECT days
+                    FROM smart_mow.schedule
+                    WHERE robot_id = $1
+                    LIMIT 1
+                `, [options.robotId]);
+                return pg.firstResultOrNull(sql);
+            }
+    }
+
 };
 
-const workDays = {
-    get: async (connection, options) => {
-        let sql = await connection.query(`
-            SELECT days
-            FROM smart_mow.schedule
-            WHERE robot = $1
-        `, [options.robotId]);
-        return sql;
-    },
-};
 
 module.exports = {
     allRobots,
     robot,
     deleteRobot,
     schedule,
-    workDays
 };

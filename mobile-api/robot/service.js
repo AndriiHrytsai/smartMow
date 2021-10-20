@@ -56,38 +56,37 @@ const deleteRobot = {
 };
 
 const schedule = {
-    put: async (connection, options) => {
+    put: {
+        addOrUpdateSchedule: async (connection, options) => {
+            await sql.schedule.put.addSchedule(connection, options);
 
-        await sql.schedule.put(connection, options);
-
-        return {
-            'success': true,
-            'result': {
-                message: 'Days successfully added',
-            },
+            return {
+                'success': true,
+                'result': {
+                    message: 'Days successfully added',
+                }
+            }
         }
-    }
-};
+    },
+    get: {
+        getSchedule: async (connection, options) => {
+            let days = await sql.schedule.get.getSchedule(connection, options);
+            const result = days.days;
 
-const workDays = {
-    get: async (connection, options) => {
-
-        let days = await sql.workDays.get(connection, options);
-        const result = days.rows[0].days
-
-        return {
-            'success': true,
-            'result': {
-                "days": result
+            return {
+                'success': true,
+                'result': {
+                    "days": result
+                }
             }
         }
     }
-};
+}
+
 
 module.exports = {
     allRobots,
     robot,
     deleteRobot,
     schedule,
-    workDays
 };

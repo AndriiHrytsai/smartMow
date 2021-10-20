@@ -29,10 +29,10 @@ router.put('/schedule',
     asyncHandler(controller.schedule.put),
 );
 
-router.get('/work/days',
+router.get('/schedule',
     asyncHandler(middlewares.auth.user),
-    validator.main(schemas.router.workDays.get),
-    asyncHandler(controller.workDays.get),
+    validator.main(schemas.router.schedule.get),
+    asyncHandler(controller.schedule.get),
 );
 
 module.exports = router;
