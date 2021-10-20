@@ -11,7 +11,7 @@ const allRobots = {
                 "robotUUID": value.robot_uuid,
             },)
         });
-        return {robots: result};
+        return { robots: result };
     }
 };
 

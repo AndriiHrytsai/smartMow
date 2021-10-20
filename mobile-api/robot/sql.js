@@ -57,19 +57,41 @@ const robot = {
 };
 
 const deleteRobot = {
-        delete: async (connection, options, userId) => {
-            await connection.query(`
-                        DELETE
-                        FROM smart_mow.robot
-                        WHERE robot_uuid = $1
-                          AND owner_id = $2`,
-                [options.robotUUID, userId]);
-        },
-    }
-;
+    delete: async (connection, options, userId) => {
+        await connection.query(`
+                    DELETE
+                    FROM smart_mow.robot
+                    WHERE robot_uuid = $1
+                      AND owner_id = $2`,
+            [options.robotUUID, userId]);
+    },
+};
+
+const schedule = {
+    put: async (connection, options) => {
+        await connection.query(`
+            INSERT
+            INTO smart_mow.schedule
+                (days, robot)
+            VALUES ($1, $2)`, [options.days, options.robotId]);
+    },
+};
+
+const workDays = {
+    get: async (connection, options) => {
+        let sql = await connection.query(`
+            SELECT days
+            FROM smart_mow.schedule
+            WHERE robot = $1
+        `, [options.robotId]);
+        return sql;
+    },
+};
 
 module.exports = {
     allRobots,
     robot,
-    deleteRobot
+    deleteRobot,
+    schedule,
+    workDays
 };

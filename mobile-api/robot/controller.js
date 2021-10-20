@@ -25,8 +25,26 @@ const deleteRobot = {
     }
 };
 
+const schedule = {
+    put: async (req, res) => {
+        await controller.sendJson(res, async (connection) => {
+            return await service.schedule.put(connection, req.options);
+        });
+    }
+};
+
+const workDays = {
+    get: async (req, res) => {
+        await controller.sendJson(res, async (connection) => {
+            return await service.workDays.get(connection, req.options);
+        });
+    }
+};
+
 module.exports = {
     allRobots,
     robot,
-    deleteRobot
+    deleteRobot,
+    schedule,
+    workDays
 };

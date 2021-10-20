@@ -23,4 +23,16 @@ router.delete('/',
     asyncHandler(controller.deleteRobot.delete),
 );
 
+router.put('/schedule',
+    asyncHandler(middlewares.auth.user),
+    validator.main(schemas.router.schedule.put),
+    asyncHandler(controller.schedule.put),
+);
+
+router.get('/work/days',
+    asyncHandler(middlewares.auth.user),
+    validator.main(schemas.router.workDays.get),
+    asyncHandler(controller.workDays.get),
+);
+
 module.exports = router;
