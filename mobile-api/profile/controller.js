@@ -12,7 +12,7 @@ const updateUser = {
 const updatePassword = {
     put: async (req, res) => {
         await controller.sendJson(res, async (connection) => {
-            return await service.updatePassword.put(connection, req.options, req.user);
+            return await service.updatePassword.put(connection, req.options, req.user.id);
         });
     }
 };

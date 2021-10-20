@@ -30,7 +30,20 @@ const updatePassword = {
     }
 };
 
+const findUserPassword = {
+    put: async (connection, userId) => {
+        const sql = await connection.query(`
+            SELECT user_password
+            FROM smart_mow.accounts
+            WHERE user_id = $1
+            LIMIT 1
+        `, [userId]);
+        return pg.firstResultOrNull(sql);
+    }
+};
+
 module.exports = {
     updateUser,
-    updatePassword
+    updatePassword,
+    findUserPassword
 };

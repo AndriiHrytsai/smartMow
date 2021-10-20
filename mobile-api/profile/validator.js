@@ -12,7 +12,8 @@ const schemas = {
         },
         updatePassword: {
             put: Joi.object().keys({
-                password: Joi.string().required(),
+                oldPassword: Joi.string().required(),
+                newPassword: Joi.string().required(),
             }).required(),
         },
     }
