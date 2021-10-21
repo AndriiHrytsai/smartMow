@@ -26,7 +26,8 @@ const allRobots = {
                        owner_id,
                        version,
                        name,
-                       robot_uuid
+                       robot_uuid,
+                       robot_identifier
                 FROM smart_mow.robot
                 WHERE owner_id = $1`;
 

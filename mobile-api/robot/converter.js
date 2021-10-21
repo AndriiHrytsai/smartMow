@@ -9,7 +9,8 @@ const allRobots = {
                 "version": value.version,
                 "name": value.name,
                 "robotUUID": value.robot_uuid,
-            },)
+                "robotIdentifier": value.robot_identifier,
+            });
         });
         return { robots: result };
     }
