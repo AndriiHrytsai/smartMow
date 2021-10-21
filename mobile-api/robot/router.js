@@ -26,6 +26,7 @@ router.delete('/',
 router.put('/schedule',
     asyncHandler(middlewares.auth.user),
     validator.main(schemas.router.schedule.put),
+    asyncHandler(schemas.validator.checkDays),
     asyncHandler(controller.schedule.put),
 );
 
