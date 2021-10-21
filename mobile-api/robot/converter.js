@@ -11,10 +11,19 @@ const allRobots = {
                 "robotUUID": value.robot_uuid,
             },)
         });
-        return {robots: result};
+        return { robots: result };
+    }
+};
+
+const schedule = {
+    get: (foundSchedule) => {
+        return {
+            "days": foundSchedule.days,
+        };
     }
 };
 
 module.exports = {
     allRobots,
+    schedule,
 };

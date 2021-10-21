@@ -19,8 +19,20 @@ router.post('/create',
 
 router.delete('/',
     asyncHandler(middlewares.auth.user),
-    validator.main(schemas.router.deleteRobot.delete),
-    asyncHandler(controller.deleteRobot.delete),
+    validator.main(schemas.router.robot.delete),
+    asyncHandler(controller.robot.delete),
+);
+
+router.put('/schedule',
+    asyncHandler(middlewares.auth.user),
+    validator.main(schemas.router.schedule.put),
+    asyncHandler(controller.schedule.put),
+);
+
+router.get('/schedule',
+    asyncHandler(middlewares.auth.user),
+    validator.main(schemas.router.schedule.get),
+    asyncHandler(controller.schedule.get),
 );
 
 module.exports = router;

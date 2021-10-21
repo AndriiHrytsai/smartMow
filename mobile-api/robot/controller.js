@@ -14,19 +14,30 @@ const robot = {
         await controller.sendJson(res, async (connection) => {
             return await service.robot.post(connection, req.options, req.user);
         });
-    }
-};
-
-const deleteRobot = {
+    },
     delete: async (req, res) => {
         await controller.sendJson(res, async (connection) => {
-            return await service.deleteRobot.delete(connection, req.options, req.user);
+            return await service.robot.delete(connection, req.options, req.user);
         });
     }
 };
 
+const schedule = {
+    put: async (req, res) => {
+        await controller.sendJson(res, async (connection) => {
+            return await service.schedule.put(connection, req.options);
+        })
+    },
+    get: async (req, res) => {
+        await controller.sendJson(res, async (connection) => {
+            return await service.schedule.get(connection, req.options);
+        });
+    }
+};
+
+
 module.exports = {
     allRobots,
     robot,
-    deleteRobot
+    schedule,
 };

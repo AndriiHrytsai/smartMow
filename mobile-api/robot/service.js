@@ -16,7 +16,7 @@ const allRobots = {
 
 const robot = {
     post: async (connection, options, user) => {
-        let foundRobot = await sql.robot.post.findRobot(connection, options, user.id);
+        const foundRobot = await sql.common.findRobot(connection, options, user.id);
         if (foundRobot) {
             return {
                 'success': true,
@@ -34,17 +34,15 @@ const robot = {
                 message: 'Robot successfully created',
             },
         }
-    }
-};
+    },
 
-const deleteRobot = {
     delete: async (connection, options, user) => {
-        let foundRobot = await sql.robot.post.findRobot(connection, options, user.id);
-        if (!foundRobot) {
+        const foundRobot = await sql.common.findRobot(connection, options, user.id);
+        if (foundRobot === null) {
             return helper.doom.error.robotNotFound();
         }
 
-        await sql.deleteRobot.delete(connection, options, user.id);
+        await sql.robot.delete.deleteRobot(connection, options, user.id);
 
         return {
             'success': true,
@@ -55,8 +53,30 @@ const deleteRobot = {
     }
 };
 
+const schedule = {
+    put: async (connection, options) => {
+        await sql.schedule.put.addSchedule(connection, options);
+
+        return {
+            'success': true,
+            'result': {
+                message: 'Days successfully added',
+            }
+        }
+    },
+    get: async (connection, options) => {
+        const foundSchedule = await sql.schedule.get.findSchedule(connection, options);
+        const result = converter.schedule.get(foundSchedule);
+
+        return {
+            'success': true,
+            'result': result,
+        }
+    }
+};
+
 module.exports = {
     allRobots,
     robot,
-    deleteRobot
+    schedule,
 };

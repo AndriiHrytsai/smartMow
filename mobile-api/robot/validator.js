@@ -20,6 +20,15 @@ const schemas = {
                 robotUUID: Joi.string().required(),
             }).required(),
         },
+        schedule: {
+            put: Joi.object().keys({
+                days: Joi.array().items(Joi.number().required().min(1).max(7)).required(),
+                robotId: Joi.number().required(),
+            }).required(),
+            get: Joi.object().keys({
+                robotId: Joi.number().required(),
+            }).required(),
+        },
     }
 };
 
