@@ -19,8 +19,8 @@ router.post('/create',
 
 router.delete('/',
     asyncHandler(middlewares.auth.user),
-    validator.main(schemas.router.deleteRobot.delete),
-    asyncHandler(controller.deleteRobot.delete),
+    validator.main(schemas.router.robot.delete),
+    asyncHandler(controller.robot.delete),
 );
 
 router.put('/schedule',

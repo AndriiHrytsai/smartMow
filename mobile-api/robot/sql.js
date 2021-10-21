@@ -1,5 +1,23 @@
 const { pg } = require('../../app/helpers/helper');
 
+const common = {
+    findRobot: async (connection, options, userId) => {
+        const sql = await connection.query(`
+            SELECT id,
+                   owner_id,
+                   version,
+                   name,
+                   robot_uuid
+            FROM smart_mow.robot
+            WHERE robot_uuid = $1
+              AND owner_id = $2
+            LIMIT 1
+        `, [options.robotUUID, userId]);
+
+        return pg.firstResultOrNull(sql);
+    },
+};
+
 const allRobots = {
     get: {
         findRobots: async (connection, options, userId) => {
@@ -22,21 +40,6 @@ const allRobots = {
 
 const robot = {
     post: {
-        findRobot: async (connection, options, userId) => {
-            const sql = await connection.query(`
-                SELECT id,
-                       owner_id,
-                       version,
-                       name,
-                       robot_uuid
-                FROM smart_mow.robot
-                WHERE robot_uuid = $1
-                  AND owner_id = $2
-                LIMIT 1
-            `, [options.robotUUID, userId]);
-
-            return pg.firstResultOrNull(sql);
-        },
         addRobot: async (connection, options, userId) => {
             await connection.query(`
                 INSERT
@@ -53,17 +56,17 @@ const robot = {
                 options.robotVersion,
             ]);
         },
-    }
-};
+    },
 
-const deleteRobot = {
-    delete: async (connection, options, userId) => {
-        await connection.query(`
-                    DELETE
-                    FROM smart_mow.robot
-                    WHERE robot_uuid = $1
-                      AND owner_id = $2`,
-            [options.robotUUID, userId]);
+    delete: {
+        deleteRobot: async (connection, options, userId) => {
+            await connection.query(`
+                        DELETE
+                        FROM smart_mow.robot
+                        WHERE robot_uuid = $1
+                          AND owner_id = $2`,
+                [options.robotUUID, userId]);
+        }
     },
 };
 
@@ -82,9 +85,9 @@ const schedule = {
             `, [options.days, options.robotId])
         }
     },
+
     get: {
-        getSchedule:
-            async (connection, options) => {
+        findSchedule: async (connection, options) => {
                 let sql = await connection.query(`
                     SELECT days
                     FROM smart_mow.schedule
@@ -94,13 +97,11 @@ const schedule = {
                 return pg.firstResultOrNull(sql);
             }
     }
-
 };
 
-
 module.exports = {
+    common,
     allRobots,
     robot,
-    deleteRobot,
     schedule,
 };
