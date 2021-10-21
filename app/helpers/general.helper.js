@@ -16,16 +16,7 @@ function assign() {
     return obj;
 }
 
-function getChanges(changes) {
-    let str = [];
-    for (let change of changes) {
-        str.push(change.changes);
-    }
-    return str;
-}
-
 module.exports = {
     EMPTY_NAME,
     assign,
-    getChanges
 };

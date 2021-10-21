@@ -2,7 +2,7 @@ let config = require('./config.helper');
 
 module.exports = {
     firstResultOrNull: (sql) => {
-        const {rows} = sql;
+        const { rows } = sql;
 
         if (rows.length !== 0) {
             return rows[0];
@@ -12,7 +12,7 @@ module.exports = {
     },
 
     firstResultOrEmptyObject: (sql) => {
-        const {rows} = sql;
+        const { rows } = sql;
 
         if (rows.length !== 0) {
             return rows[0];
@@ -22,7 +22,7 @@ module.exports = {
     },
 
     resultOrEmptyArray: (sql) => {
-        const {rows} = sql;
+        const { rows } = sql;
 
         if (rows.length === 0) {
             return [];
@@ -43,5 +43,11 @@ module.exports = {
         page = page * limit;
 
         return `${sql} OFFSET ${page} LIMIT ${limit}`;
+    },
+
+    deleteLastCharacterOfLastElementInArray: (array) => {
+        let lastIndex = array.length - 1;
+        let lastElement = array[lastIndex];
+        array[lastIndex] = lastElement.substring(0, lastElement.length - 1);
     }
 };
