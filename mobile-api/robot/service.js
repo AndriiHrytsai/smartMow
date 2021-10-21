@@ -64,15 +64,20 @@ const schedule = {
             }
         }
     },
-    get: async (connection, options) => {
-        const foundSchedule = await sql.schedule.get.findSchedule(connection, options);
+    get: async (connection, options, userId) => {
+        const foundSchedule = await sql.schedule.get.findSchedule(connection, options, userId);
+        if (!foundSchedule) {
+            return helper.doom.error.accountNotFound()
+        }
+
         const result = converter.schedule.get(foundSchedule);
 
         return {
             'success': true,
             'result': result,
         }
-    }
+    },
+
 };
 
 module.exports = {
