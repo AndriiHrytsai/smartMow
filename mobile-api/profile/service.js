@@ -43,13 +43,11 @@ const updatePassword = {
 const profileInfo = {
     get: async (connection, userId) => {
         const profileInfo = await sql.profileInfo.get.userInfo(connection, userId);
-
         const result = await converter.profileInfo.get(profileInfo);
+
         return {
             'success': true,
-            'result': {
-                'profileInfo': result
-            }
+            'result': result,
         }
     }
 };
@@ -58,5 +56,5 @@ const profileInfo = {
 module.exports = {
     updateUser,
     updatePassword,
-    profileInfo
+    profileInfo,
 };

@@ -17,7 +17,7 @@ router.put('/update/password',
     asyncHandler(controller.updatePassword.put),
 );
 
-router.get('/info',
+router.get('/',
     asyncHandler(middlewares.auth.user),
     asyncHandler(controller.profileInfo.get),
 );

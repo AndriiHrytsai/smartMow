@@ -28,5 +28,5 @@ const profileInfo = {
 module.exports = {
     updateUser,
     updatePassword,
-    profileInfo
+    profileInfo,
 };
