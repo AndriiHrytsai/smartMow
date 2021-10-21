@@ -34,7 +34,9 @@ const schemas = {
     validator: {
         checkDays(req, res, next) {
             const days = req.options.days.split(',').map(value => parseInt(value, null));
-            const {error} = Joi.array().items(Joi.number().required().min(1).max(7)).required().validate(days);
+            const {error} = Joi.array().items(
+                Joi.number().min(1).max(7).required()
+            ).min(1).required().validate(days);
             if (error) {
                 return doom.error.validation(res, error);
             }

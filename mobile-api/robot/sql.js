@@ -87,17 +87,19 @@ const schedule = {
     },
 
     get: {
-        findSchedule: async (connection, options) => {
-                let sql = await connection.query(`
-                    SELECT days
-                    FROM smart_mow.schedule
-                    WHERE robot_id = $1
-                    LIMIT 1
-                `, [options.robotId]);
-                return pg.firstResultOrNull(sql);
-            }
+        findSchedule: async (connection, options, userId) => {
+            let sql = await connection.query(`
+                SELECT days
+                FROM smart_mow.schedule
+                         INNER JOIN smart_mow.robot ON schedule.robot_id = robot.id
+                WHERE robot.owner_id = $2
+                  and robot_id = $1
+            `, [options.robotId, userId]);
+            return pg.firstResultOrNull(sql);
+        }
     }
 };
+
 
 module.exports = {
     common,
