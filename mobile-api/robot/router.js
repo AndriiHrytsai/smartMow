@@ -29,7 +29,7 @@ router.put('/schedule',
     asyncHandler(controller.schedule.put),
 );
 
-router.get('/schedule',
+router.get('/schedule/:robotId',
     asyncHandler(middlewares.auth.user),
     validator.main(schemas.router.schedule.get),
     asyncHandler(controller.schedule.get),
