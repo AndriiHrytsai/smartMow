@@ -20,5 +20,5 @@ const updatePassword = {
 
 module.exports = {
     updateUser,
-    updatePassword
+    updatePassword,
 };

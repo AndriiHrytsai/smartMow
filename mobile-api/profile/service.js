@@ -1,12 +1,10 @@
 const sql = require('./sql');
 const bcrypt = require('bcryptjs');
-const helper = require('../../app/helpers/helper')
-
+const helper = require('../../app/helpers/helper');
 
 const updateUser = {
     put: async (connection, options, user) => {
-
-        await sql.updateUser.put(connection, options, user.id);
+        await sql.updateUser.put.updateProfile(connection, options, user.id);
 
         return {
             'success': true,
@@ -19,8 +17,7 @@ const updateUser = {
 
 const updatePassword = {
     put: async (connection, options, userId) => {
-
-        const user = await sql.findUserPassword.put(connection, userId);
+        const user = await sql.updatePassword.put.findPassword(connection, userId);
         if (user === null) {
             return helper.doom.error.accountNotFound();
         }
@@ -31,8 +28,7 @@ const updatePassword = {
         }
 
         const newPassword = bcrypt.hashSync(options.newPassword, 10);
-
-        await sql.updatePassword.put(connection, newPassword, userId);
+        await sql.updatePassword.put.changePassword(connection, newPassword, userId);
 
         return {
             'success': true,
@@ -45,5 +41,5 @@ const updatePassword = {
 
 module.exports = {
     updateUser,
-    updatePassword
+    updatePassword,
 };
