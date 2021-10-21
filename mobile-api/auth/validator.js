@@ -9,8 +9,6 @@ const schemas = {
                 password: Joi.string().required(),
                 address: Joi.string().required(),
                 phone: Joi.string().required(),
-                modelNo: Joi.string().required(),
-                uuid: Joi.string().required(),
             }).required(),
         },
         login: {

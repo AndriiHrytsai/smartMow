@@ -3,7 +3,7 @@ const { pg } = require('../../app/helpers/helper');
 const updateUser = {
     put: {
         updateProfile: async (connection, options, userId) => {
-            const {email, phone, address, fullName} = options;
+            const { email, phone, address, fullName } = options;
             let sql = [];
 
             sql.push('UPDATE smart_mow.accounts SET');

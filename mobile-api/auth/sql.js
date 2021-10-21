@@ -1,4 +1,4 @@
-const {pg, config} = require('../../app/helpers/helper');
+const { pg, config } = require('../../app/helpers/helper');
 
 const common = {
     findUser: async (connection, email) => {
@@ -25,18 +25,14 @@ const registration = {
                          user_password,
                          user_address,
                          user_phone,
-                         user_model_no,
-                         user_uuid,
                          user_registration_time)
-                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+                        VALUES ($1, $2, $3, $4, $5, $6)
                         RETURNING user_id;
                 `, [options.fullName,
                     options.email,
                     options.password,
                     options.address,
                     options.phone,
-                    options.modelNo,
-                    options.uuid,
                     new Date()]
             );
             return pg.getId(result, 'user_id');

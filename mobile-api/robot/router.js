@@ -19,7 +19,7 @@ router.post('/create',
 
 router.delete('/',
     asyncHandler(middlewares.auth.user),
-    validator.main(schemas.router.robot.delete),
+    validator.main(schemas.router.deleteRobot.delete),
     asyncHandler(controller.robot.delete),
 );
 
