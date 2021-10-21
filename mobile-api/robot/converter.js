@@ -18,7 +18,7 @@ const allRobots = {
 const schedule = {
     get: (foundSchedule) => {
         return {
-            "days": foundSchedule.days,
+            "days": foundSchedule ? foundSchedule.days : [],
         };
     }
 };
