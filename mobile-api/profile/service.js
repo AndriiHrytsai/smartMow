@@ -42,12 +42,12 @@ const updatePassword = {
 
 const profileInfo = {
     get: async (connection, userId) => {
-        const profile = await sql.profileInfo.get.userInfo(connection, userId);
-        if (profile === null) {
+        const foundInfo = await sql.profileInfo.get.findInfo(connection, userId);
+        if (foundInfo === null) {
             return helper.doom.error.accountNotFound();
         }
 
-        const result = await converter.profileInfo.get(profile);
+        const result = await converter.profileInfo.get(foundInfo);
 
         return {
             'success': true,

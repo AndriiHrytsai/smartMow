@@ -45,7 +45,7 @@ const updatePassword = {
 
 const profileInfo = {
     get: {
-        userInfo: async (connection, userId) => {
+        findInfo: async (connection, userId) => {
             const sql = await connection.query(`
                 SELECT user_full_name,
                        user_phone,
