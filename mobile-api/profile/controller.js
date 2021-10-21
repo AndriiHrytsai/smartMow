@@ -17,7 +17,16 @@ const updatePassword = {
     }
 };
 
+const profileInfo = {
+    get: async (req, res) => {
+        await controller.sendJson(res, async (connection) => {
+            return await service.profileInfo.get(connection, req.user.id);
+        });
+    }
+};
+
 module.exports = {
     updateUser,
     updatePassword,
+    profileInfo
 };

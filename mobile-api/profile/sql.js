@@ -43,7 +43,21 @@ const updatePassword = {
     }
 };
 
+const profileInfo = {
+    get: {
+        userInfo: async (connection, userId) => {
+            const sql = await connection.query(`
+                SELECT user_full_name, user_phone, user_address, user_email
+                FROM smart_mow.accounts
+                WHERE user_id = $1
+            `, [userId]);
+            return pg.resultOrEmptyArray(sql);
+        },
+    }
+};
+
 module.exports = {
     updateUser,
     updatePassword,
+    profileInfo
 };
