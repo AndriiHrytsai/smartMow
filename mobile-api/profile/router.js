@@ -17,5 +17,10 @@ router.put('/update/password',
     asyncHandler(controller.updatePassword.put),
 );
 
+router.get('/',
+    asyncHandler(middlewares.auth.user),
+    asyncHandler(controller.profileInfo.get),
+);
+
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const sql = require('./sql');
 const bcrypt = require('bcryptjs');
 const helper = require('../../app/helpers/helper');
+const converter = require('./converter');
 
 const updateUser = {
     put: async (connection, options, user) => {
@@ -39,7 +40,21 @@ const updatePassword = {
     }
 };
 
+const profileInfo = {
+    get: async (connection, userId) => {
+        const profileInfo = await sql.profileInfo.get.userInfo(connection, userId);
+        const result = await converter.profileInfo.get(profileInfo);
+
+        return {
+            'success': true,
+            'result': result,
+        }
+    }
+};
+
+
 module.exports = {
     updateUser,
     updatePassword,
+    profileInfo,
 };
