@@ -47,12 +47,14 @@ const robot = {
                 (owner_id,
                  name,
                  robot_uuid,
+                 robot_identifier,
                  version)
-                VALUES ($1, $2, $3, $4)
+                VALUES ($1, $2, $3, $4, $5)
             `, [
                 userId,
                 options.robotName,
                 options.robotUUID,
+                options.robotIdentifier,
                 options.robotVersion,
             ]);
         },

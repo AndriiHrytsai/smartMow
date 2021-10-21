@@ -13,6 +13,7 @@ const schemas = {
             post: Joi.object().keys({
                 robotName: Joi.string().required(),
                 robotUUID: Joi.string().required(),
+                robotIdentifier: Joi.string().required(),
                 robotVersion: Joi.number().positive().required(),
             }).required(),
         },
