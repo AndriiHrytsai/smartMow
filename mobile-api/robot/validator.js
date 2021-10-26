@@ -1,4 +1,4 @@
-const {doom} = require('../../app/helpers/helper');
+const { doom } = require('../../app/helpers/helper');
 const Joi = require('joi');
 
 const schemas = {
@@ -24,7 +24,7 @@ const schemas = {
         },
         schedule: {
             put: Joi.object().keys({
-                days: Joi.string().required(),
+                days: Joi.string().allow('').required(),
                 robotId: Joi.number().required(),
             }).required(),
             get: Joi.object().keys({
@@ -34,8 +34,13 @@ const schemas = {
     },
     validator: {
         checkDays(req, res, next) {
-            const days = req.options.days.split(',').map(value => parseInt(value, null));
-            const {error} = Joi.array().items(
+            if (req.options.days === '') {
+                req.options.days = [];
+                next();
+                return;
+            }
+            const days = !req.options.days ? [] : req.options.days.split(',').map(value => parseInt(value, null));
+            const { error } = Joi.array().items(
                 Joi.number().min(1).max(7).required()
             ).min(1).required().validate(days);
             if (error) {
