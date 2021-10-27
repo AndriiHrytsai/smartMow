@@ -37,11 +37,13 @@ config.JWT = {
         'user': {
             'accessToken': config.JWT.secret.user.accessToken,
             'refreshToken': config.JWT.secret.user.refreshToken,
+            'forbiddenToken': config.JWT.secret.user.forbiddenToken
         },
     },
     'lifetime': {
         'accessToken': config.JWT.lifetime.accessToken,
         'refreshToken': config.JWT.lifetime.refreshToken,
+        'forbiddenToken': config.JWT.lifetime.forbiddenToken
     }
 };
 

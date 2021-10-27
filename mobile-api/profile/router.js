@@ -22,5 +22,20 @@ router.get('/',
     asyncHandler(controller.profileInfo.get),
 );
 
+router.put('/forgot/password',
+    validator.main(schemas.router.forgotPassword.put),
+    asyncHandler(controller.forgotPassword.put),
+);
+
+router.post('/verify',
+    validator.main(schemas.router.verifyUser.post),
+    asyncHandler(controller.verifyUser.post),
+);
+
+router.put('/change/password',
+    validator.main(schemas.router.changePassword.put),
+    asyncHandler(controller.changePassword.put),
+);
+
 
 module.exports = router;

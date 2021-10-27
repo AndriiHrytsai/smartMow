@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const helper = require('../../app/helpers/helper');
 const converter = require('./converter');
 
+
 const updateUser = {
     put: async (connection, options, user) => {
         await sql.updateUser.put.updateProfile(connection, options, user.id);
@@ -56,9 +57,80 @@ const profileInfo = {
     }
 };
 
+const forgotPassword = {
+    put: async (connection, options) => {
+        const verificationCodeLength = 4;
+        let verificationCode = [];
+
+        const user = await sql.profileInfo.put.findUser(connection, options.email);
+        if (user) {
+            for (let i = 0; i < verificationCodeLength; i++) {
+                const result = helper.mailer.generateRandomNumber();
+                verificationCode.push(result);
+            }
+            verificationCode = verificationCode.join('');
+            await helper.mailer.sendMail(options.email, verificationCode);
+
+            const forbiddenToken = await helper.token.user.forbiddenToken();
+
+            await sql.verificationCode.post.saveVerificationCode(connection, verificationCode, user, forbiddenToken);
+        }
+
+        return {
+            'success': true,
+            'result': {
+                message: 'The letter was successfully sent',
+            }
+        }
+    }
+};
+
+const verifyUser = {
+    post: async (connection, options) => {
+        const code = await sql.verificationCode.get.verificationCode(connection, options.code)
+        if (!code) {
+            return helper.doom.error.accountNotFound()
+        }
+        await helper.token.user.verifyForbiddenToken(code.life_time)
+
+        return {
+            'success': true,
+            'result': {
+                message: 'verify is successful',
+            }
+        }
+    }
+};
+
+const changePassword = {
+    put: async (connection, options) => {
+
+        const code = await sql.verificationCode.get.verificationCode(connection, options.code)
+
+        if (!code) {
+            return helper.doom.error.accountNotFound();
+        }
+        await helper.token.user.verifyForbiddenToken(code.life_time);
+
+        if (options.password === options.passwordRepeat) {
+            const newPassword = bcrypt.hashSync(options.password, 10);
+            await sql.forgotPassword.put.changePassword(connection, newPassword, code.user_id);
+        }
+
+        return {
+            'success': true,
+            'result': {
+                message: 'your password was successfully updated',
+            }
+        }
+    }
+};
 
 module.exports = {
     updateUser,
     updatePassword,
     profileInfo,
+    forgotPassword,
+    verifyUser,
+    changePassword
 };
