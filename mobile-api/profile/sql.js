@@ -81,8 +81,8 @@ const verificationCode = {
                 VALUES ($1, $2, $3)
                 ON CONFLICT (user_id)
                     DO UPDATE
-                    SET code    = EXCLUDED.code,
-                        user_id = EXCLUDED.user_id,
+                    SET code      = EXCLUDED.code,
+                        user_id   = EXCLUDED.user_id,
                         life_time = EXCLUDED.life_time
             `, [code, user.user_id, forbiddenToken])
         },
