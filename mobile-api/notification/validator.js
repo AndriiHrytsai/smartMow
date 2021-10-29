@@ -9,7 +9,7 @@ const schemas = {
         },
         sendNotification: {
             post: Joi.object().keys({
-                tittle: Joi.string().optional(),
+                title: Joi.string().optional(),
                 message: Joi.string().required(),
                 priority: Joi.string().required(),
             }).required(),

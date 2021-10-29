@@ -6,7 +6,7 @@ const notifications = {
             result.push({
                 "owner": value.owner,
                 "message": value.message,
-                "tittle": value.tittle,
+                "title": value.title,
                 "priority": value.priority,
                 "date": value.date,
             })
