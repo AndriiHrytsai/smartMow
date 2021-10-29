@@ -9,7 +9,7 @@ module.exports = {
     pg: require('./pg.helper'),
     token: require('./token.helper'),
     validator: require('./validator.helper'),
-    mailer: require('./profile.helper'),
+    awsMailer: require('./aws.mailer.helper'),
 
     middlewares: {
         auth: require('../middlewares/auth.handler'),

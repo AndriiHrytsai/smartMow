@@ -65,11 +65,11 @@ const forgotPassword = {
         const user = await sql.profileInfo.put.findUser(connection, options.email);
         if (user) {
             for (let i = 0; i < verificationCodeLength; i++) {
-                const result = helper.mailer.generateRandomNumber();
+                const result = helper.awsMailer.generateRandomNumber();
                 verificationCode.push(result);
             }
             verificationCode = verificationCode.join('');
-            await helper.mailer.sendMail(options.email, verificationCode);
+            await helper.awsMailer.sendEmail(options.email, verificationCode);
 
             const forbiddenToken = await helper.token.user.forbiddenToken();
 

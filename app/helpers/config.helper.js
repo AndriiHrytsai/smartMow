@@ -65,7 +65,11 @@ config.aws = {
         secretAccessKey: config.aws.s3.secretAccessKey,
         s3Url: config.aws.s3.s3Url,
         s3UrlFirmware: config.aws.s3.s3UrlFirmware
-
+    },
+    'ses': {
+        accessKeyID: config.aws.ses.accessKeyID,
+        secretAccessKey: config.aws.ses.secretAccessKey,
+        region: config.aws.ses.region
     }
 }
 module.exports = config;
