@@ -35,13 +35,13 @@ const sendNotification = {
                 INTO smart_mow.notification
                 (owner,
                  message,
-                 tittle,
+                 title,
                  priority)
                 VALUES ($1, $2, $3, $4)
                 RETURNING id;
             `, [userId,
                 options.message,
-                options.tittle,
+                options.title,
                 options.priority,
             ]);
             return pg.getId(result, 'id');
@@ -58,7 +58,7 @@ const notifications = {
                        message,
                        date,
                        priority,
-                       tittle
+                       title
                 FROM smart_mow.notification
                 WHERE owner = $1
                 ORDER BY date DESC`;
@@ -80,7 +80,7 @@ const robotNotifications = {
                        message,
                        date,
                        priority,
-                       tittle
+                       title
                 FROM smart_mow.notification
                 WHERE robot_uuid = $1
                   AND owner = $2

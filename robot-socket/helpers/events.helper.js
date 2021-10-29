@@ -4,4 +4,5 @@ module.exports = {
         disconnect: 'disconnect',
     },
     schedule: 'schedule',
+    notification: 'notification',
 };
