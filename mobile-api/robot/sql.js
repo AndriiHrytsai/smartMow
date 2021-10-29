@@ -79,25 +79,23 @@ const schedule = {
             await connection.query(`
                 INSERT
                 INTO smart_mow.schedule
-                    (days, robot_id)
+                    (days, robot_uuid)
                 VALUES ($1, $2)
-                ON CONFLICT (robot_id)
+                ON CONFLICT (robot_uuid)
                     DO UPDATE
-                    SET days     = EXCLUDED.days,
-                        robot_id = EXCLUDED.robot_id
-            `, [options.days, options.robotId])
+                    SET days       = EXCLUDED.days,
+                        robot_uuid = EXCLUDED.robot_uuid
+            `, [options.days, options.robotUUID])
         }
     },
 
     get: {
-        findSchedule: async (connection, options, userId) => {
+        findSchedule: async (connection, options) => {
             let sql = await connection.query(`
                 SELECT days
                 FROM smart_mow.schedule
-                         INNER JOIN smart_mow.robot ON schedule.robot_id = robot.id
-                WHERE robot.owner_id = $2
-                  and robot_id = $1
-            `, [options.robotId, userId]);
+                WHERE robot_uuid = $1
+            `, [options.robotUUID]);
             return pg.firstResultOrNull(sql);
         }
     }

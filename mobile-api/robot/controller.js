@@ -30,7 +30,7 @@ const schedule = {
     },
     get: async (req, res) => {
         await controller.sendJson(res, async (connection) => {
-            return await service.schedule.get(connection, req.options, req.user.id);
+            return await service.schedule.get(connection, req.options);
         });
     }
 };

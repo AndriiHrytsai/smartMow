@@ -65,8 +65,8 @@ const schedule = {
         }
     },
 
-    get: async (connection, options, userId) => {
-        const foundSchedule = await sql.schedule.get.findSchedule(connection, options, userId);
+    get: async (connection, options) => {
+        const foundSchedule = await sql.schedule.get.findSchedule(connection, options);
         const result = converter.schedule.get(foundSchedule);
 
         return {

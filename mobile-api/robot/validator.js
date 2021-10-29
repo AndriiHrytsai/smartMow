@@ -25,10 +25,10 @@ const schemas = {
         schedule: {
             put: Joi.object().keys({
                 days: Joi.string().allow('').required(),
-                robotId: Joi.number().required(),
+                robotUUID: Joi.string().required(),
             }).required(),
             get: Joi.object().keys({
-                robotId: Joi.number().required(),
+                robotUUID: Joi.number().required(),
             }).required(),
         },
     },
