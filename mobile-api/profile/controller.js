@@ -25,35 +25,8 @@ const profileInfo = {
     }
 };
 
-const forgotPassword = {
-    put: async (req, res) => {
-        await controller.sendJson(res, async (connection) => {
-            return await service.forgotPassword.put(connection, req.options);
-        });
-    }
-};
-
-const verifyUser = {
-    post: async (req, res) => {
-        await controller.sendJson(res, async (connection) => {
-            return await service.verifyUser.post(connection, req.options);
-        });
-    }
-};
-
-const changePassword = {
-    put: async (req, res) => {
-        await controller.sendJson(res, async (connection) => {
-            return await service.changePassword.put(connection, req.options);
-        });
-    }
-};
-
 module.exports = {
     updateUser,
     updatePassword,
     profileInfo,
-    forgotPassword,
-    verifyUser,
-    changePassword
 };

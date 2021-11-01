@@ -23,18 +23,17 @@ const user = {
         });
     },
 
-    forbiddenToken: () => {
+    restorePasswordToken: () => {
         return JWT.sign({
             'iss': config.JWT.iss,
-        }, config.JWT.secret.user.forbiddenToken, {
-            expiresIn: config.JWT.lifetime.forbiddenToken
+        }, config.JWT.secret.user.restorePasswordToken, {
+            expiresIn: config.JWT.lifetime.restorePasswordToken,
         });
     },
 
-    verifyForbiddenToken: async (token) => {
-        await verifyPromise(token, config.JWT.secret.user.forbiddenToken)
+    verifyRestorePasswordToken: async (token) => {
+        await verifyPromise(token, config.JWT.secret.user.restorePasswordToken);
     }
-
 };
 
 

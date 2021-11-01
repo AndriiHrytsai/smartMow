@@ -17,6 +17,23 @@ const schemas = {
                 password: Joi.string().required(),
             }).required(),
         },
+        forgotPassword: {
+            put: Joi.object().keys({
+                email: Joi.string().email().required(),
+            }).required(),
+        },
+        verifyCode: {
+            post: Joi.object().keys({
+                code: Joi.string().required(),
+            }).required(),
+        },
+        changePassword: {
+            put: Joi.object().keys({
+                password: Joi.string().required(),
+                passwordRepeat: Joi.string().required(),
+                code: Joi.string().required(),
+            }).required(),
+        },
     }
 };
 

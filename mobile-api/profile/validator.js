@@ -16,23 +16,6 @@ const schemas = {
                 newPassword: Joi.string().required(),
             }).required(),
         },
-        forgotPassword: {
-            put: Joi.object().keys({
-                email: Joi.string().email().required(),
-            }).required(),
-        },
-        verifyUser: {
-            post: Joi.object().keys({
-                code: Joi.string().required(),
-            }).required(),
-        },
-        changePassword: {
-            put: Joi.object().keys({
-                password: Joi.string().required(),
-                passwordRepeat: Joi.string().required(),
-                code: Joi.string().required(),
-            }).required(),
-        },
     }
 };
 

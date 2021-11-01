@@ -1,5 +1,5 @@
-const {controller} = require('../../app/helpers/helper');
-const {StatusCodes} = require('http-status-codes');
+const { controller } = require('../../app/helpers/helper');
+const { StatusCodes } = require('http-status-codes');
 const service = require('./service');
 
 const registration = {
@@ -26,8 +26,35 @@ const logout = {
     }
 };
 
+const forgotPassword = {
+    put: async (req, res) => {
+        await controller.sendJson(res, async (connection) => {
+            return await service.forgotPassword.put(connection, req.options);
+        });
+    }
+};
+
+const verifyCode = {
+    post: async (req, res) => {
+        await controller.sendJson(res, async (connection) => {
+            return await service.verifyCode.post(connection, req.options);
+        });
+    }
+};
+
+const changePassword = {
+    put: async (req, res) => {
+        await controller.sendJson(res, async (connection) => {
+            return await service.changePassword.put(connection, req.options);
+        });
+    }
+};
+
 module.exports = {
     registration,
     login,
     logout,
+    forgotPassword,
+    verifyCode,
+    changePassword,
 };
