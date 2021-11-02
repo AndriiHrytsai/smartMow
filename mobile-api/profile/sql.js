@@ -54,10 +54,9 @@ const profileInfo = {
                 FROM smart_mow.accounts
                 WHERE user_id = $1
             `, [userId]);
-
             return pg.firstResultOrEmptyObject(sql);
-        },
-    }
+        }
+    },
 };
 
 module.exports = {

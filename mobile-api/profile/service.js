@@ -56,7 +56,6 @@ const profileInfo = {
     }
 };
 
-
 module.exports = {
     updateUser,
     updatePassword,

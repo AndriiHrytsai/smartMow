@@ -37,11 +37,13 @@ config.JWT = {
         'user': {
             'accessToken': config.JWT.secret.user.accessToken,
             'refreshToken': config.JWT.secret.user.refreshToken,
+            'restorePasswordToken': config.JWT.secret.user.restorePasswordToken,
         },
     },
     'lifetime': {
         'accessToken': config.JWT.lifetime.accessToken,
         'refreshToken': config.JWT.lifetime.refreshToken,
+        'restorePasswordToken': config.JWT.lifetime.restorePasswordToken,
     }
 };
 
@@ -62,8 +64,8 @@ config.aws = {
         accessKeyID: config.aws.s3.accessKeyID,
         secretAccessKey: config.aws.s3.secretAccessKey,
         s3Url: config.aws.s3.s3Url,
-        s3UrlFirmware: config.aws.s3.s3UrlFirmware
-
+        s3UrlFirmware: config.aws.s3.s3UrlFirmware,
     }
-}
+};
+
 module.exports = config;

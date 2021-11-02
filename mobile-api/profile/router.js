@@ -22,5 +22,4 @@ router.get('/',
     asyncHandler(controller.profileInfo.get),
 );
 
-
 module.exports = router;

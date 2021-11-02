@@ -70,8 +70,72 @@ const logout = {
     }
 };
 
+const forgotPassword = {
+    put: async (connection, options) => {
+        const user = await sql.findUser.get.user(connection, options.email);
+        if (user) {
+            const verificationCode = helper.mailer.generateVerifyCode();
+            await helper.mailer.sendMail(options.email, { verificationCode });
+            const restorePasswordToken = await helper.token.user.restorePasswordToken();
+            await sql.verificationCode.post.saveVerificationCode(connection, verificationCode, user, restorePasswordToken);
+        }
+
+        return {
+            'success': true,
+            'result': {
+                message: 'The letter was successfully sent',
+            }
+        }
+    }
+};
+
+const verifyCode = {
+    post: async (connection, options) => {
+        const code = await sql.verificationCode.get.verificationCode(connection, options.code);
+        if (code === null) {
+            return helper.doom.error.verificationCodeNotFound();
+        }
+
+        await helper.token.user.verifyRestorePasswordToken(code.life_time);
+
+        return {
+            'success': true,
+            'result': {
+                message: 'verify is successful',
+            }
+        }
+    }
+};
+
+const changePassword = {
+    put: async (connection, options) => {
+        const code = await sql.verificationCode.get.verificationCode(connection, options.code);
+        if (code === null) {
+            return helper.doom.error.verificationCodeNotFound();
+        }
+        await helper.token.user.verifyRestorePasswordToken(code.life_time);
+
+        if (options.password !== options.passwordRepeat) {
+            return helper.doom.error.passwordNotConcur();
+        }
+
+        const newPassword = bcrypt.hashSync(options.password, 10);
+        await sql.forgotPassword.put.changePassword(connection, newPassword, code.user_id);
+
+        return {
+            'success': true,
+            'result': {
+                message: 'your password was successfully updated',
+            }
+        }
+    }
+};
+
 module.exports = {
     registration,
     login,
     logout,
+    forgotPassword,
+    verifyCode,
+    changePassword,
 };

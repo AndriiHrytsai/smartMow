@@ -26,6 +26,9 @@ const errorCode = {
     // Password does not match email.
     passwordNotValid: 130,
 
+    // Password not concur.
+    passwordNotConcur: 135,
+
     // User account was not found.
     accountNotFound: 140,
 
@@ -37,6 +40,12 @@ const errorCode = {
 
     // Robot Not Found.
     robotNotFound: 170,
+
+    // Verification Code Not Found.
+    verificationCodeNotFound: 180,
+
+    // Wrong template.
+    wrongTemplate: 185,
 };
 
 const error = {
@@ -106,6 +115,16 @@ const error = {
         }
     },
 
+    passwordNotConcur: () => {
+        return {
+            statusCode: StatusCodes.UNAUTHORIZED,
+            success: false,
+            message: 'Password is not coincide.',
+            error: "Access Denied",
+            errorCode: errorCode.passwordNotConcur,
+        }
+    },
+
     accountNotFound: () => {
         return {
             statusCode: StatusCodes.NOT_FOUND,
@@ -143,6 +162,26 @@ const error = {
             message: 'Robot not found',
             error: "Robot not found",
             errorCode: errorCode.robotNotFound,
+        }
+    },
+
+    verificationCodeNotFound: () => {
+        return {
+            statusCode: StatusCodes.CONFLICT,
+            success: false,
+            message: 'verification code not found',
+            error: "verification code not found",
+            errorCode: errorCode.verificationCodeNotFound,
+        }
+    },
+
+    wrongTemplate: () => {
+        return {
+            statusCode: StatusCodes.CONFLICT,
+            success: false,
+            message: 'Wrong template',
+            error: "Wrong template",
+            errorCode: errorCode.wrongTemplate,
         }
     },
 };
