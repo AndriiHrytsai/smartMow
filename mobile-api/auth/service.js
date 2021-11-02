@@ -75,7 +75,7 @@ const forgotPassword = {
         const user = await sql.findUser.get.user(connection, options.email);
         if (user) {
             const verificationCode = helper.mailer.generateVerifyCode();
-            await helper.mailer.sendMail(options.email, { verificationCode });
+            await helper.mailer.sendMail(options.email, {verificationCode});
             const restorePasswordToken = await helper.token.user.restorePasswordToken();
             await sql.verificationCode.post.saveVerificationCode(connection, verificationCode, user, restorePasswordToken);
         }
@@ -121,6 +121,7 @@ const changePassword = {
 
         const newPassword = bcrypt.hashSync(options.password, 10);
         await sql.forgotPassword.put.changePassword(connection, newPassword, code.user_id);
+        await sql.verificationCode.delete.deleteVerificationCode(connection, options.code);
 
         return {
             'success': true,

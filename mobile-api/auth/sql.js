@@ -101,6 +101,15 @@ const verificationCode = {
             `, [code]);
             return pg.firstResultOrNull(sql);
         }
+    },
+    delete: {
+        deleteVerificationCode: async (connection, code) => {
+            await connection.query(`
+                DELETE
+                FROM smart_mow.verification
+                WHERE code = $1
+            `, [code]);
+        }
     }
 };
 
@@ -125,7 +134,7 @@ const findUser = {
                 WHERE user_email = $1
             `, [email]);
 
-            return pg.firstResultOrEmptyObject(sql);
+            return pg.firstResultOrNull(sql);
         },
     }
 };
