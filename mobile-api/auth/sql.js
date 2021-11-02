@@ -99,7 +99,7 @@ const verificationCode = {
                 FROM smart_mow.verification
                 WHERE code = $1
             `, [code]);
-            return pg.firstResultOrEmptyObject(sql);
+            return pg.firstResultOrNull(sql);
         }
     }
 };

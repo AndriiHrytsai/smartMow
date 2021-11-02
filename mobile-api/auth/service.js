@@ -72,7 +72,6 @@ const logout = {
 
 const forgotPassword = {
     put: async (connection, options) => {
-
         const user = await sql.findUser.get.user(connection, options.email);
         if (user) {
             const verificationCode = helper.mailer.generateVerifyCode();
@@ -93,9 +92,10 @@ const forgotPassword = {
 const verifyCode = {
     post: async (connection, options) => {
         const code = await sql.verificationCode.get.verificationCode(connection, options.code);
-        if (!code) {
-            return helper.doom.error.verificationCodeNotFound()
+        if (code === null) {
+            return helper.doom.error.verificationCodeNotFound();
         }
+
         await helper.token.user.verifyRestorePasswordToken(code.life_time);
 
         return {
@@ -110,7 +110,6 @@ const verifyCode = {
 const changePassword = {
     put: async (connection, options) => {
         const code = await sql.verificationCode.get.verificationCode(connection, options.code);
-
         if (code === null) {
             return helper.doom.error.verificationCodeNotFound();
         }

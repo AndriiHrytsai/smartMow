@@ -10,9 +10,9 @@ function generateVerifyCode(min = 1000, max = 9999) {
 
 const templateParser = new emailTemplates({
     views: {
-        root: path.join(process.cwd(), 'app', 'helpers', 'email.templates')
-    }
-})
+        root: path.join(process.cwd(), 'app', 'helpers', 'email.templates'),
+    },
+});
 
 const transporter = nodeMailer.createTransport({
     host: 'smtp.gmail.com',
@@ -20,22 +20,22 @@ const transporter = nodeMailer.createTransport({
     secure: true,
     auth: {
         user: 'smartMow.backing@gmail.com',
-        pass: 'adminsmartmow'
-    }
+        pass: 'adminsmartmow',
+    },
 });
 
 const sendMail = async (userMail, context = {}) => {
     const templateToSend = templateInfo.forgotPassword;
-
     if (!templateToSend) {
         return helper.doom.error.wrongTemplate();
     }
-    const html = await templateParser.render(templateToSend.templateName, context)
+
+    const html = await templateParser.render(templateToSend.templateName, context);
     return transporter.sendMail({
         from: 'smartMow.backing@gmail.com',
         to: userMail,
         subject: templateToSend.subject,
-        html
+        html,
     });
 };
 
@@ -43,4 +43,3 @@ module.exports = {
     generateVerifyCode,
     sendMail,
 };
-
