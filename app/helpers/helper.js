@@ -7,6 +7,7 @@ module.exports = {
     header: require('./header.helper'),
     notification: require('./notification.helper'),
     pg: require('./pg.helper'),
+    robot: require('./robot.helper'),
     token: require('./token.helper'),
     validator: require('./validator.helper'),
     mailer: require('./mailer.helper'),
