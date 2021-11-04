@@ -2,9 +2,9 @@ const robots = new Map();
 
 function addRobot(robotUUID) {
     robots.set(robotUUID, {
-        max_speed: 0,
-        current_speed: 0,
-        number_revolutions: 0,
+        maxSpeed: 0,
+        currentSpeed: 0,
+        numberRevolutions: 0,
         battery: 0,
         warranty: false,
     });
