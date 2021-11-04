@@ -12,6 +12,7 @@ function connection(mobileIO, robotIO) {
         socket.join(socket.roomId);
         app.general.initEvents(socket);
         app.notification.initEvents(socket, mobileIO, robotIO);
+        app.robotState.initEvents(socket, mobileIO, robotIO);
         app.schedule.initEvents(socket, mobileIO, robotIO);
     };
 }

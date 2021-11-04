@@ -11,6 +11,7 @@ function connection(mobileIO, robotIO) {
     return (socket) => {
         socket.join(socket.roomId);
         app.general.initEvents(socket);
+        app.robot.initEvents(socket);
         app.control.initEvents(socket, mobileIO, robotIO);
         app.schedule.initEvents(socket, mobileIO, robotIO);
     };
