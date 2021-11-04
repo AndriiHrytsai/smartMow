@@ -10,9 +10,9 @@ function onPingRobot(socket) {
 
         let foundRobot = robot.getRobot(data.robotUUID);
         if (foundRobot) {
-            socket.emit(events.robot.is_connected, {found: true});
+            socket.emit(events.robot.is_connected, {found: true, robot: foundRobot});
         } else {
-            socket.emit(events.robot.is_connected, {found: false});
+            socket.emit(events.robot.is_connected, {found: false, robot: null});
         }
     });
 }
